@@ -1,0 +1,23 @@
+<code id="field">
+<script>
+
+rule = Math.floor(Math.random() * 2 ** 2 ** 5)
+
+size = 256
+ar = [...Array(size)].map(_ => Math.random() > .5)
+binFromDec = rule.toString(2).padStart(8).split('').map(_ => +_)
+
+field.innerHTML = ''
+
+for (;--size;) {
+	ar = ar.map((_, i, ar) => binFromDec[
+		(ar[i-2] || 0) * 16 +
+		(ar[i-1] || 0) * 8 +
+		ar[i] * 4 +
+		(ar[i+1] || 0) * 2 +
+		(ar[i+2] || 0)
+	])
+
+	field.innerHTML += `<br>` + ar.map(_ => _ ?  `░░` : `▓▓`).join('')
+}
+</script>
